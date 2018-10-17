@@ -9,23 +9,16 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      search: '',
+      currentEvents: [],
     };
 
-    this.handleSearchChange = this.handleSearchChange.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
   }
 
-  handleSearchChange(search) {
-    this.setState({ search });
-  }
-
-  handleSearch() {
-    const { search } = this.state;
-
+  handleSearch(query) {
     axios.get('/events', {
       params: {
-        q: search,
+        q: query,
         _limit: 10,
       },
     }).then(({ data }) => console.log(data))
@@ -33,13 +26,10 @@ class App extends React.Component {
   }
 
   render() {
-    const { search } = this.state;
     return (
       <div>
-        <Search 
-          handleSearchChange={this.handleSearchChange}
+        <Search
           handleSearch={this.handleSearch}
-          search={search}
         />
       </div>
     );

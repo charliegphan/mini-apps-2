@@ -1,23 +1,43 @@
 import React from 'react';
 
-const Search = ({handleSearchChange, handleSearch, search}) => (
-  <div>
-    <label>
-      Search event
-      <input
-        value={search}
-        onChange={(e) => {handleSearchChange(e.target.value)}}
-      />
+class Search extends React.Component {
+  constructor(props) {
+    super(props);
 
-      <button 
-        type="button"
-        onClick={() => handleSearch()}
-      >
-      Search
-      </button>
+    this.state = {
+      search: '',
+    };
 
-    </label>
-  </div>
-);
+    this.handleSearchChange = this.handleSearchChange.bind(this);
+  }
+
+  handleSearchChange(search) {
+    this.setState({ search });
+  }
+
+  render() {
+    const { handleSearch } = this.props;
+    const { search } = this.state;
+    return (
+      <div>
+        <label>
+          Search event
+          <input
+            value={search}
+            onChange={e => this.handleSearchChange(e.target.value)}
+          />
+
+          <button
+            type="button"
+            onClick={(e) => handleSearch(e.target.value)}
+          >
+          Search
+          </button>
+
+        </label>
+      </div>
+    );
+  }
+}
 
 export default Search;
