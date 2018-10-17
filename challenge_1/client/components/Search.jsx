@@ -1,14 +1,21 @@
 import React from 'react';
 
-const Search = ({handleSearchChange, search}) => (
+const Search = ({handleSearchChange, handleSearch, search}) => (
   <div>
     <label>
       Search event
       <input
         value={search}
         onChange={(e) => {handleSearchChange(e.target.value)}}
-        />
-      <button type="button">Search</button>
+      />
+
+      <button 
+        type="button"
+        onClick={() => handleSearch()}
+      >
+      Search
+      </button>
+
     </label>
   </div>
 );

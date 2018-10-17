@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+// import ReactPaginate from 'react-paginate';
 
 import Search from './Search.jsx';
 
@@ -19,18 +20,27 @@ class App extends React.Component {
     this.setState({ search });
   }
 
-  search() {
+  handleSearch() {
     const { search } = this.state;
-    const query = `q=${search}`;
-    axios.get()
 
+    axios.get('/events', {
+      params: {
+        q: search,
+        _limit: 10,
+      },
+    }).then(({ data }) => console.log(data))
+      .catch(err => console.log(err));
   }
 
   render() {
     const { search } = this.state;
     return (
       <div>
-        <Search handleSearchChange={this.handleSearchChange} search={search} />
+        <Search 
+          handleSearchChange={this.handleSearchChange}
+          handleSearch={this.handleSearch}
+          search={search}
+        />
       </div>
     );
   }
