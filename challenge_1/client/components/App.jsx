@@ -11,7 +11,7 @@ class App extends React.Component {
 
     this.state = {
       events: [],
-      page: 0,
+      pageCount: 10,
     };
 
     this.handleSearch = this.handleSearch.bind(this);
@@ -20,24 +20,38 @@ class App extends React.Component {
   handleSearch(query) {
     axios.get('/events', {
       params: {
-        q: query,
-        _limit: 10,
+        q: query
       },
-    }).then(({ data }) => this.setState({ events: data }))
-      .catch(err => console.log(err));
+    }).then(({ data }) => 
+      this.setState({ 
+        events: data,
+        pageCount: Math.ceil(data.length / 10),
+      })
+    ).catch(err => console.log(err));
+  }
+
+  handlePageChange({ selected }) {
+    console.log(selected);
   }
 
   render() {
-    const { events } = this.state;
+    const { events, pageCount } = this.state;
     return (
       <div>
         <Search
           handleSearch={this.handleSearch}
         />
+
         {events.map((event) => {
-          return <Event event={event} />;
+          return <Event {...event} />;
         })}
-        <ReactPaginate />
+
+        <ReactPaginate
+          pageCount={pageCount}
+          pageRange={pageCount}
+          marginPagesDisplayed={2}
+          onPageChange={this.handlePageChange}
+        />
       </div>
     );
   }

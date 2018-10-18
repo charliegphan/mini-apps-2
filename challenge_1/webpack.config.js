@@ -7,11 +7,23 @@ module.exports = {
   entry: SRC_PATH,
   output: {
     path: OUT_DIR,
-    filename: 'bundle.js'
+    filename: 'bundle.js',
   },
   mode: 'development',
   module: {
     rules: [
+      {
+        test: /\.css$/,
+        loader: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+            },
+          },
+        ],
+      },
       {
         test: /\.m?jsx$/,
         exclude: /(node_modules)/,
@@ -19,9 +31,9 @@ module.exports = {
           loader: 'babel-loader',
           options: {
             presets: ['@babel/preset-env', '@babel/preset-react']
-          }
-        }
-      }
-    ]
-  }
-}
+          },
+        },
+      },
+    ],
+  },
+};

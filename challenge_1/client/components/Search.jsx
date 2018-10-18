@@ -29,7 +29,7 @@ class Search extends React.Component {
 
           <button
             type="button"
-            onClick={(e) => handleSearch(e.target.value)}
+            onClick={() => handleSearch(search)}
           >
           Search
           </button>
