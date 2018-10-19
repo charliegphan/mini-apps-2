@@ -14,27 +14,24 @@ class CryptoChart extends React.Component {
 
   renderChart() {
     const node = this.node;
-    console.log(this.state.prices);
-    console.log(this.state.dates);
 
     new Chart(node, {
-      // The type of chart we want to create
       type: 'line',
-  
-      // The data for our dataset
       data: {
-          // labels: ["January", "February", "March", "April", "May", "June", "July"],
           labels: this.state.dates,
           datasets: [{
-              label: "My First dataset",
-              backgroundColor: 'rgb(255, 99, 132)',
-              borderColor: 'rgb(255, 99, 132)',
+              label: "Bitcoin USD",
+              borderColor: 'rgb(0, 0, 0)',
               data: this.state.prices,
           }]
       },
-  
-      // Configuration options go here
-      options: {}
+      options: {
+        elements: {
+          line: {
+              tension: 0
+          }
+      }
+      }
   });
   }
 
@@ -50,14 +47,14 @@ class CryptoChart extends React.Component {
 
   render() {
     return (
-      <div>
+      <div style={{"height": 600,
+                    "width": 900}}>
         <canvas 
           id="myChart"
           ref={node => this.node = node}
-          // width="400" 
-          // height="400"
         >  
         </canvas>
+        powered by coindesk ^_^
       </div>
     )
   }
